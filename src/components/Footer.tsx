@@ -1,5 +1,5 @@
 
-import logo from '../assets/png/logo.png'
+import logo from '../assets/png/my_logo.png'
 
 export default function Footer() {
 
@@ -13,7 +13,7 @@ export default function Footer() {
           width={42}
           height={42}
         />
-        <p className='font-bold text-2xl'>GONSTERS</p>
+        <p className='font-bold text-2xl'>LILGIBS</p>
       </div>
     </div>
   )

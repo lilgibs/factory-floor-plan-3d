@@ -1,6 +1,6 @@
 
 import { LandPlot } from 'lucide-react'
-import logo from '../assets/png/logo.png'
+import logo from '../assets/png/my_logo.png'
 import useGlobalHooks from '../hooks/_useGlobalHooks'
 import { useEffect, useRef } from 'react';
 
@@ -44,7 +44,7 @@ export default function Sidebar({ isOpen, setIsOpen, menuButtonRef }: IProps) {
           width={42}
           height={42}
         />
-        <p className={`${isOpen ? 'block' : 'hidden'} text-nowrap overflow-hidden font-bold text-2xl`}>GONSTERS</p>
+        <p className={`${isOpen ? 'block' : 'hidden'} text-nowrap overflow-hidden font-bold text-2xl`}>LILGIBS</p>
       </div>
       <div className={`-z-10 flex-1 ${isOpen ? 'p-4' : 'py-4 px-2 lg:items-center'} flex flex-col gap-4 bg-white font-semibold transition-all duration-300 ease-in-out`}>
         <p>Menu</p>
