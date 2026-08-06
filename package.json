@@ -1,18 +1,23 @@
 {
-  "name": "fe-vite-init",
+  "name": "factory-floor-plan-3d",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "description": "An interactive 3D factory floor plan with per-machine OEE, computed from availability, performance, and quality.",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "vitest",
+    "test:ci": "vitest run",
+    "typecheck": "tsc -b --noEmit"
   },
   "dependencies": {
     "@react-three/drei": "^10.3.0",
     "@react-three/fiber": "^9.1.2",
     "@tailwindcss/vite": "^4.1.10",
+    "axios": "^1.10.0",
     "lucide-react": "^0.522.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
@@ -31,8 +36,10 @@
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.19",
     "globals": "^16.0.0",
+    "jsdom": "^29.1.1",
     "typescript": "~5.8.3",
     "typescript-eslint": "^8.30.1",
-    "vite": "^6.3.5"
+    "vite": "^6.3.5",
+    "vitest": "^4.1.10"
   }
 }

@@ -27,7 +27,7 @@ export default function Sidebar({ isOpen, setIsOpen, menuButtonRef }: IProps) {
 
     document.addEventListener('mousedown', handleClickOutside)
     return () => document.removeEventListener('mousedown', handleClickOutside)
-  }, [menuButtonRef])
+  }, [menuButtonRef, setIsOpen])
 
   return (
     <div
@@ -53,7 +53,7 @@ export default function Sidebar({ isOpen, setIsOpen, menuButtonRef }: IProps) {
             className={`p-2 flex gap-4 hover:bg-blue-50 ${window.location.pathname === '/floor-plan' ? 'bg-blue-50' : ''} rounded-md cursor-pointer`}
             onClick={() => {
               globalHooks.navigate('/floor-plan')
-              window.innerWidth <= 1024 && setIsOpen(false)
+              if (window.innerWidth <= 1024) setIsOpen(false)
             }}
           >
             <LandPlot />

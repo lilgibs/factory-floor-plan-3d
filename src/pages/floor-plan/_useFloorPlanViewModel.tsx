@@ -1,16 +1,19 @@
 import { createRef, useEffect, useRef, useState, type RefObject } from 'react'
+import type { OrbitControls as OrbitControlsImpl } from 'three-stdlib'
 import type { IMachineProps } from '../../domain/models/machine';
 import { machines } from '../../data/machines';
 
 export default function useFloorPlanViewModel() {
-  const [data, _setData] = useState<IMachineProps[]>(machines)
+  const [data] = useState<IMachineProps[]>(machines)
   const [activeTooltip, setActiveTooltip] = useState<string | null>(null);
   const [onReset, setOnReset] = useState<boolean>(false);
   const [isFullscreen, setIsFullscreen] = useState<boolean>(false);
   const [isExpanded, setIsExpanded] = useState(false);
 
   // Ref
-  const canvasControlsRef = useRef<any>(null)
+  // Typed against the real controls rather than `any`, so dollyIn, target, and
+  // update are checked instead of trusted.
+  const canvasControlsRef = useRef<OrbitControlsImpl>(null)
   const fullScreenRef = useRef<HTMLDivElement>(null);
   const button3dRefs = useRef<{ [key: string]: RefObject<HTMLDivElement | null> }>({})
 
