@@ -4,15 +4,41 @@ import React, { useEffect, useRef, type RefObject } from 'react'
 interface IProps {
   name: string
   position: [number, number, number],
+  isOpen: boolean
   children: React.ReactNode
   setActiveTooltip: React.Dispatch<React.SetStateAction<string | null>>
   anchorRef: RefObject<HTMLDivElement | null>
 }
 
-export default function Tooltip3D({ position, setActiveTooltip, children, anchorRef }: IProps) {
+const TRANSITION_MS = 240
+
+export default function Tooltip3D({ name, position, isOpen, setActiveTooltip, children, anchorRef }: IProps) {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [shouldRender, setShouldRender] = React.useState(isOpen)
+  const [isVisible, setIsVisible] = React.useState(false)
 
   useEffect(() => {
+    if (isOpen) {
+      setShouldRender(true)
+      return undefined
+    }
+
+    setIsVisible(false)
+    const timeout = window.setTimeout(() => setShouldRender(false), TRANSITION_MS)
+
+    return () => window.clearTimeout(timeout)
+  }, [isOpen])
+
+  useEffect(() => {
+    if (!shouldRender || !isOpen) return undefined
+
+    const frame = window.requestAnimationFrame(() => setIsVisible(true))
+    return () => window.cancelAnimationFrame(frame)
+  }, [isOpen, shouldRender])
+
+  useEffect(() => {
+    if (!isOpen) return undefined
+
     let startTime = 0
     let startX = 0
     let startY = 0
@@ -52,7 +78,9 @@ export default function Tooltip3D({ position, setActiveTooltip, children, anchor
       document.removeEventListener('mousedown', handleMouseDown)
       document.removeEventListener('mouseup', handleMouseUp)
     }
-  }, [anchorRef, setActiveTooltip])
+  }, [anchorRef, isOpen, setActiveTooltip])
+
+  if (!shouldRender) return null
 
   return (
     <Html
@@ -60,7 +88,16 @@ export default function Tooltip3D({ position, setActiveTooltip, children, anchor
       position={position}
       zIndexRange={[0, 100]}
     >
-      <div ref={containerRef}>
+      <div
+        ref={containerRef}
+        role="dialog"
+        aria-label={`${name} machine details`}
+        className={`origin-bottom transition-[opacity,transform] duration-[240ms] ease-[cubic-bezier(0.22,1,0.36,1)] will-change-transform motion-reduce:transition-none ${
+          isVisible
+            ? 'translate-y-0 scale-100 opacity-100'
+            : 'pointer-events-none translate-y-2 scale-95 opacity-0'
+        }`}
+      >
         {children}
       </div>
     </Html>

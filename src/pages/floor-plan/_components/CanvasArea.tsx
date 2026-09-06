@@ -7,6 +7,7 @@ import { FactoryModel } from "../../../components/FactoryModel";
 import Button3D from "../../../components/Button3D";
 import Tooltip3D from "../../../components/Tooltip3D";
 import MachineInfo3D from "../../../components/MachineInfo3D";
+import MachineSearch from "./MachineSearch";
 
 export default function CanvasArea({ model }: { model: ReturnType<typeof useFloorPlanViewModel> }) {
   return (
@@ -36,32 +37,31 @@ export default function CanvasArea({ model }: { model: ReturnType<typeof useFloo
                 key={`button-${val.name}`}
                 name={val.name}
                 position={val.position}
+                state={val.state}
                 setActiveTooltip={model.setActiveTooltip}
                 onFocusCamera={model.focusCameraTo}
                 ref={model.button3dRefs.current[val.name]}
               />
             ))}
 
-            {/* Render tooltip info jika aktif */}
-            {model.activeTooltip &&
-              model.data.map((val) =>
-                val.name === model.activeTooltip ? (
-                  <Tooltip3D
-                    key={`tooltip-${val.name}`}
-                    name={val.name}
-                    position={val.position}
-                    setActiveTooltip={model.setActiveTooltip}
-                    anchorRef={model.button3dRefs.current[val.name]}
-                  >
-                    <MachineInfo3D data={val} />
-                  </Tooltip3D>
-                ) : null
-              )}
+            {/* Keep tooltip shells mounted so the close transition can finish. */}
+            {model.data.map((val) => (
+              <Tooltip3D
+                key={`tooltip-${val.name}`}
+                name={val.name}
+                position={val.position}
+                isOpen={model.activeTooltip === val.name}
+                setActiveTooltip={model.setActiveTooltip}
+                anchorRef={model.button3dRefs.current[val.name]}
+              >
+                <MachineInfo3D data={val} />
+              </Tooltip3D>
+            ))}
           </Suspense>
           <OrbitControls enableDamping ref={model.canvasControlsRef} />
         </Canvas>
       }
-      <div className="absolute top-4 right-4 flex flex-col gap-4 md:gap-6 z-50">
+      <div className="absolute top-4 right-4 flex flex-col items-end gap-3 z-50">
         {/* Desktop - Start*/}
         <button
           onClick={model.handleToggleFullscreen}
@@ -88,7 +88,9 @@ export default function CanvasArea({ model }: { model: ReturnType<typeof useFloo
         </button>
         {/* Mobile - END*/}
 
-        <div className='flex flex-col gap-2'>
+        <MachineSearch model={model} />
+
+        <div className='flex flex-col items-end gap-2'>
           <button
             onClick={model.handleZoomIn}
             className="relative  h-[24px] w-[24px] bg-blue-500 hover:bg-blue-600 text-white rounded shadow cursor-pointer"

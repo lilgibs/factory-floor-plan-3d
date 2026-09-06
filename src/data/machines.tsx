@@ -17,7 +17,7 @@ import type { IMachineProps } from '../domain/models/machine';
  */
 export const machines: IMachineProps[] = [
   {
-    name: 'Tag 1001',
+    name: '1001',
     position: [-0.6, 4, 0.2],
     cycleTime: 12.4,
     idealCycleTime: 12.0,
@@ -30,7 +30,7 @@ export const machines: IMachineProps[] = [
     state: 'running',
   },
   {
-    name: 'Tag 1002',
+    name: '1002',
     position: [0.04, 4, 3.1],
     cycleTime: 13.1,
     idealCycleTime: 12.0,
@@ -44,8 +44,8 @@ export const machines: IMachineProps[] = [
     state: 'running',
   },
   {
-    name: 'Tag 1003',
-    position: [2.9, 4, 3.9],
+    name: '1003',
+    position: [2.8, 4, 4.3],
     cycleTime: 12.1,
     idealCycleTime: 12.0,
     // Runs beautifully when it runs. It just keeps stopping.
@@ -58,8 +58,8 @@ export const machines: IMachineProps[] = [
     state: 'running',
   },
   {
-    name: 'Tag 1004',
-    position: [-3.4, 4, 2.6],
+    name: '1004',
+    position: [8, 4, 4.3],
     // Available and accurate, but running at two thirds of its rated speed.
     cycleTime: 18.6,
     idealCycleTime: 12.0,
@@ -72,8 +72,8 @@ export const machines: IMachineProps[] = [
     state: 'running',
   },
   {
-    name: 'Tag 1005',
-    position: [1.8, 4, -2.4],
+    name: '1005',
+    position: [16, 4, 2.6],
     // Slow, stopping, and scrapping. The one to look at first.
     cycleTime: 19.8,
     idealCycleTime: 12.0,
@@ -86,8 +86,8 @@ export const machines: IMachineProps[] = [
     state: 'running',
   },
   {
-    name: 'Tag 1006',
-    position: [-2.2, 4, -1.1],
+    name: '1006',
+    position: [17.3, 4, 5.7],
     cycleTime: 12.0,
     idealCycleTime: 12.0,
     availability: 0,
